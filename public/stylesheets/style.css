@@ -1,0 +1,24 @@
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00B7FF;
+}
+
+.reminder-item-container {
+  display: flex;
+}
+
+.btn-delete {
+  margin-left: 20px;
+  background:none!important;
+  color: #00B7FF;
+  border:none; 
+  padding:0!important;
+  font: inherit;
+  /*border is optional*/
+  border-bottom:1px solid #00B7FF;
+  cursor: pointer;
+}

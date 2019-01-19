@@ -1,0 +1,36 @@
+<div id="main-container">
+    <div id="notifs-container">
+        {{#each items as |item|}}
+        <div>
+            {{item.user}}
+            <br/>
+            {{item.number}}
+        </div>
+        <ul>
+            {{#each item.reminders as |reminder|}}
+                <li class="reminder-item-container">
+                    {{reminder}}
+                    <form method="POST" action="/reminder/remove">
+                        <input type="hidden" name="user" value={{item.user}} />
+                        <input type="hidden" name="reminder" value={{reminder}} />
+                        <input type="submit" value="delete" class="btn-delete" />
+                    </form>
+                </li>
+            {{/each}}
+        </ul>
+        {{/each}}
+    </div>
+    <hr/>
+    <div id="new-notif-form-container">
+        <div>Add new reminders</div>
+        <form method="POST">
+            <select name="user">
+                {{#each items as |item|}}
+                    <option value={{item.user}}>{{item.user}}</option>
+                {{/each}}
+            </select>
+            <input type="text" name="reminder">
+            <input type="submit" value="add">
+        </form>
+    </div>
+</div>
