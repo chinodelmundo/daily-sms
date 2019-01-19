@@ -3,16 +3,14 @@
         {{#each items as |item|}}
         <div>
             {{item.user}}
-            <br/>
-            {{item.number}}
         </div>
         <ul>
             {{#each item.reminders as |reminder|}}
                 <li class="reminder-item-container">
-                    {{reminder}}
+                    {{reminder.real}}
                     <form method="POST" action="/reminder/remove">
                         <input type="hidden" name="user" value={{item.user}} />
-                        <input type="hidden" name="reminder" value={{reminder}} />
+                        <input type="hidden" name="reminder" value={{reminder.formatted}} />
                         <input type="submit" value="delete" class="btn-delete" />
                     </form>
                 </li>

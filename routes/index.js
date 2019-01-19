@@ -14,7 +14,8 @@ MongoClient.connect(url, (err, client) => {
     collection.find().sort({}).toArray((err, result) => {
       if (err) return console.log(err);
 
-      res.render('index', {items: result});
+      const formattedResult = formatReminders(result);
+      res.render('index', {items: formattedResult});
     });
   });
 
@@ -31,12 +32,27 @@ MongoClient.connect(url, (err, client) => {
   router.post('/reminder/remove', function(req, res, next) {
     collection.updateOne(
       { 'user': req.body.user },
-      { $pull: {'reminders': req.body.reminder} },
+      { $pull: {'reminders': req.body.reminder.replace(/_/g, " ")} },
       (err) => {
         if (err) return console.log(err);
         res.redirect('/');
     });
   });
 });
+
+const formatReminders = (result) => {
+  result = result.map(reminderDoc => {
+    reminderDoc.reminders = reminderDoc.reminders.map(reminder => {
+      return {
+        real: reminder,
+        formatted: reminder.replace(/ /g, "_")
+      };
+    });
+
+    return reminderDoc;
+  });
+  
+  return result;
+};
 
 module.exports = router;
