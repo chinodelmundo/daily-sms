@@ -8,13 +8,13 @@ a {
 }
 
 #new-notif-form-container {
-  border-top: 2px #999 solid;
+  border-top: 1px #999 solid;
   padding-top: 20px;
 }
 
 .user-box {
-  padding: 0px 10px 10px 0px;
-  border-right: 2px #999 solid;
+  padding: 0px 15px 10px 15px;
+  border-right: 1px #999 solid;
 }
 
 .user-info {
@@ -44,22 +44,26 @@ a {
 }
 
 .reminders-body {
-  padding: 0px 0px 5px 25px; 
+  padding-bottom: 25px;
+  margin: 5px 5px 5px 0px;
+  height: 25vh;
+  overflow-y: auto;
 }
 
 .reminder-item {
-  padding-top: 3px;
+  padding: 3px 10px;
   display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
-.btn-delete {
+.reminder-item:hover {
+  background: #E1DEDD;
+}
+
+.icon-button {
   margin-left: 20px;
-  background:none!important;
-  color: #00B7FF;
-  border:none; 
-  padding:0!important;
-  font: inherit;
-  /*border is optional*/
-  border-bottom:1px solid #00B7FF;
-  cursor: pointer;
+  padding: 2px 5px;
+  background: #59ce75;
+  border-radius: 50%;
 }

@@ -19,7 +19,9 @@
                                 <form method="POST" action="/reminder/daily/remove">
                                     <input type="hidden" name="user" value={{item.user}} />
                                     <input type="hidden" name="reminder" value={{reminder.formatted}} />
-                                    <input type="submit" value="done" class="btn-delete" />
+                                    <button type="submit" class="pure-button icon-button" title="Finished!">
+                                        <i class="fas fa-check fa-xs"></i>
+                                    </button>
                                 </form>
                             </div>
                         {{/each}}
@@ -39,7 +41,9 @@
                                 <form method="POST" action="/reminder/weekly/remove">
                                     <input type="hidden" name="user" value={{item.user}} />
                                     <input type="hidden" name="reminder" value={{reminder.formatted}} />
-                                    <input type="submit" value="done" class="btn-delete" />
+                                    <button type="submit" class="pure-button icon-button" title="Finished!">
+                                        <i class="fas fa-check fa-xs"></i>
+                                    </button>
                                 </form>
                             </div>
                         {{/each}}
@@ -50,7 +54,7 @@
     </div>
     <div id="new-notif-form-container">
         <div>Add new reminders</div>
-        <form method="POST" class="pure-form">
+        <form method="POST" class="pure-form" autocomplete="off">
             <select name="user">
                 {{#each items as |item|}}
                     <option value={{item.user}}>{{item.user}}</option>
