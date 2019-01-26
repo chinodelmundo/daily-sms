@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const MongoClient = require('mongodb').MongoClient;
 const url = process.env.MONGO_URI || require('../config/mongodb').MONGO_URI;
+const moment = require('moment');
 const dbName = 'daily-sms';
 
 MongoClient.connect(url, (err, client) => {
@@ -39,6 +40,56 @@ MongoClient.connect(url, (err, client) => {
           res.redirect('/');
       });
     }
+  });
+
+  router.post('/reminder/daily/finish', function(req, res, next) {
+    const reminder = req.body.reminder.replace(/_/g, " ");
+
+    collection.updateOne(
+      { 'user': req.body.user },
+      { $pull: { 'reminders.daily' : reminder } },
+      (err) => {
+        if (err) return console.log(err);
+
+        collection.updateOne(
+          { 'user': req.body.user },
+          { $push: {
+              'reminders.finished': {
+                'text': reminder,
+                'date': moment().format('ll')
+                } 
+            }
+          },
+          (err) => {
+            if (err) return console.log(err);
+            res.redirect('/');
+        });
+    });
+  });
+
+  router.post('/reminder/weekly/finish', function(req, res, next) {
+    const reminder = req.body.reminder.replace(/_/g, " ");
+
+    collection.updateOne(
+      { 'user': req.body.user },
+      { $pull: { 'reminders.weekly' : reminder } },
+      (err) => {
+        if (err) return console.log(err);
+
+        collection.updateOne(
+          { 'user': req.body.user },
+          { $push: {
+              'reminders.finished': {
+                'text': reminder,
+                'date': moment().format('ll')
+              }
+            }
+          },
+          (err) => {
+            if (err) return console.log(err);
+            res.redirect('/');
+        });
+    });
   });
 
   router.post('/reminder/daily/remove', function(req, res, next) {

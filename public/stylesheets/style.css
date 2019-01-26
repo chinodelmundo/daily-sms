@@ -1,5 +1,5 @@
 body {
-  padding: 50px;
+  padding: 20px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
@@ -27,6 +27,14 @@ a {
   border-radius: 20px;
   margin-top: 10px;
   border: 1px #cbcbcb solid;
+}
+
+.finished-items-container {
+  border-radius: 20px;
+  margin-top: 10px;
+  border: 1px #cbcbcb solid;
+  display: none;
+
 }
 
 .reminders-header {
@@ -61,11 +69,26 @@ a {
   background: #E1DEDD;
 }
 
+.reminder-item-buttons {
+  display: flex;
+}
+
 .icon-button {
-  margin-left: 20px;
+  margin-left: 5px;
   padding: 2px 5px;
-  background: #59ce75;
   border-radius: 50%;
+}
+
+.button-finished {
+  background: #59ce75;
+}
+
+.button-delete {
+  background: #e35266;
+}
+
+.others-button-container {
+  padding: 10px 10px 0px 10px;
 }
 
 @media (min-width: 728px) and (max-width: 1150px) {

@@ -1,7 +1,7 @@
 <div id="main-container">
     <div id="notifs-container" class="pure-g">
         {{#each items as |item|}}
-            <div class="user-box pure-u-1-3">
+            <div class="user-box pure-u-1-3 ">
                 <div class="user-info">
                     {{item.user}}
                 </div>
@@ -16,13 +16,22 @@
                         {{#each item.reminders.daily as |reminder|}}
                             <div class="reminder-item">
                                 {{reminder.real}}
-                                <form method="POST" action="/reminder/daily/remove">
-                                    <input type="hidden" name="user" value={{item.user}} />
-                                    <input type="hidden" name="reminder" value={{reminder.formatted}} />
-                                    <button type="submit" class="pure-button icon-button" title="Finished!">
-                                        <i class="fas fa-check fa-xs"></i>
-                                    </button>
-                                </form>
+                                <div class="reminder-item-buttons">
+                                    <form method="POST" action="/reminder/daily/finish">
+                                        <input type="hidden" name="user" value={{item.user}} />
+                                        <input type="hidden" name="reminder" value={{reminder.formatted}} />
+                                        <button type="submit" class="pure-button button-finished icon-button" title="Finished!">
+                                            <i class="fas fa-check fa-xs"></i>
+                                        </button>
+                                    </form>
+                                    <form method="POST" action="/reminder/daily/remove">
+                                        <input type="hidden" name="user" value={{item.user}} />
+                                        <input type="hidden" name="reminder" value={{reminder.formatted}} />
+                                        <button type="submit" class="pure-button button-delete icon-button" title="Delete">
+                                            <i class="fas fa-trash-alt fa-xs"></i>
+                                        </button>
+                                    </form>
+                                </div>
                             </div>
                         {{/each}}
                     </div>
@@ -38,13 +47,43 @@
                         {{#each item.reminders.weekly as |reminder|}}
                             <div class="reminder-item">
                                 {{reminder.real}}
-                                <form method="POST" action="/reminder/weekly/remove">
-                                    <input type="hidden" name="user" value={{item.user}} />
-                                    <input type="hidden" name="reminder" value={{reminder.formatted}} />
-                                    <button type="submit" class="pure-button icon-button" title="Finished!">
-                                        <i class="fas fa-check fa-xs"></i>
-                                    </button>
-                                </form>
+                                <div class="reminder-item-buttons">
+                                    <form method="POST" action="/reminder/weekly/finish">
+                                        <input type="hidden" name="user" value={{item.user}} />
+                                        <input type="hidden" name="reminder" value={{reminder.formatted}} />
+                                        <button type="submit" class="pure-button button-finished icon-button" title="Finished!">
+                                            <i class="fas fa-check fa-xs"></i>
+                                        </button>
+                                    </form>
+                                    <form method="POST" action="/reminder/weekly/remove">
+                                        <input type="hidden" name="user" value={{item.user}} />
+                                        <input type="hidden" name="reminder" value={{reminder.formatted}} />
+                                        <button type="submit" class="pure-button button-delete icon-button" title="Delete">
+                                            <i class="fas fa-trash-alt fa-xs"></i>
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        {{/each}}
+                    </div>
+                </div>
+                <div class="others-button-container">
+                    <input type="button" value="Show Finished Items" class="pure-button" onclick="$('#{{item.user}}-finished-items').toggle();"/>
+                    <input type="button" value="Show Notes" class="pure-button" />
+                </div>
+                <div id="{{item.user}}-finished-items" class="finished-items-container">
+                    <div class="reminders-header">
+                        Finished Items
+                    </div>
+                    <div class="reminders-body">
+                        {{#each item.reminders.finished as |reminder|}}
+                            <div class="reminder-item">
+                                <div>
+                                    {{reminder.text}}
+                                </div>
+                                <div>
+                                    {{reminder.date}}
+                                </div>
                             </div>
                         {{/each}}
                     </div>
