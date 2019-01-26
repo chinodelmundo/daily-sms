@@ -67,3 +67,21 @@ a {
   background: #59ce75;
   border-radius: 50%;
 }
+
+@media (min-width: 728px) and (max-width: 1150px) {
+  /* enter large tablet style overrides here */
+}
+
+@media (min-width: 420px) and (max-width: 727px) {
+  /* enter medium tablet and large phone style overrides here */
+    body {
+      padding: 0px;
+    }
+}
+
+@media (min-width: 1px) and (max-width: 419px) {
+  /* enter small devices and phone style overrides here */
+  body {
+    padding: 0px;
+  }
+}
