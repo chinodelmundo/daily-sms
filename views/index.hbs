@@ -1,34 +1,67 @@
 <div id="main-container">
-    <div id="notifs-container">
+    <div id="notifs-container" class="pure-g">
         {{#each items as |item|}}
-        <div>
-            {{item.user}}
-        </div>
-        <ul>
-            {{#each item.reminders as |reminder|}}
-                <li class="reminder-item-container">
-                    {{reminder.real}}
-                    <form method="POST" action="/reminder/remove">
-                        <input type="hidden" name="user" value={{item.user}} />
-                        <input type="hidden" name="reminder" value={{reminder.formatted}} />
-                        <input type="submit" value="delete" class="btn-delete" />
-                    </form>
-                </li>
-            {{/each}}
-        </ul>
+            <div class="user-box pure-u-1-4">
+                <div class="user-info">
+                    {{item.user}}
+                </div>
+                <div class="reminders-container">
+                    <div class="reminders-header">
+                        Daily Reminders 
+                        <div class="reminder-header-info">
+                            (1:30pm)
+                        </div>
+                    </div>
+                    <div class="reminders-body">
+                        {{#each item.reminders.daily as |reminder|}}
+                            <div class="reminder-item">
+                                {{reminder.real}}
+                                <form method="POST" action="/reminder/daily/remove">
+                                    <input type="hidden" name="user" value={{item.user}} />
+                                    <input type="hidden" name="reminder" value={{reminder.formatted}} />
+                                    <input type="submit" value="done" class="btn-delete" />
+                                </form>
+                            </div>
+                        {{/each}}
+                    </div>
+                </div>
+                <div class="reminders-container">
+                    <div class="reminders-header">
+                        Weekly Reminders 
+                        <div class="reminder-header-info">
+                            (Saturdays 1:30pm)
+                        </div>
+                    </div>
+                    <div class="reminders-body">
+                        {{#each item.reminders.weekly as |reminder|}}
+                            <div class="reminder-item">
+                                {{reminder.real}}
+                                <form method="POST" action="/reminder/weekly/remove">
+                                    <input type="hidden" name="user" value={{item.user}} />
+                                    <input type="hidden" name="reminder" value={{reminder.formatted}} />
+                                    <input type="submit" value="done" class="btn-delete" />
+                                </form>
+                            </div>
+                        {{/each}}
+                    </div>
+                </div>
+            </div>
         {{/each}}
     </div>
-    <hr/>
     <div id="new-notif-form-container">
         <div>Add new reminders</div>
-        <form method="POST">
+        <form method="POST" class="pure-form">
             <select name="user">
                 {{#each items as |item|}}
                     <option value={{item.user}}>{{item.user}}</option>
                 {{/each}}
             </select>
+            <select name="type">
+                <option value="daily">Daily</option>
+                <option value="weekly">Weekly</option>
+            </select>
             <input type="text" name="reminder">
-            <input type="submit" value="add">
+            <input type="submit" value="add" class="pure-button">
         </form>
     </div>
 </div>

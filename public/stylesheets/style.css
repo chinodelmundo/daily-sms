@@ -7,7 +7,48 @@ a {
   color: #00B7FF;
 }
 
-.reminder-item-container {
+#new-notif-form-container {
+  border-top: 2px #999 solid;
+  padding-top: 20px;
+}
+
+.user-box {
+  padding: 0px 10px 10px 0px;
+  border-right: 2px #999 solid;
+}
+
+.user-info {
+  text-align: center;
+  font-weight: bold;
+  font-size: 15pt;
+}
+
+.reminders-container {
+  border-radius: 20px;
+  margin-top: 10px;
+  border: 1px #cbcbcb solid;
+}
+
+.reminders-header {
+  display: flex;
+  border-radius: 5px;
+  padding: 7px 12px;
+  border-bottom: 1px #cbcbcb solid;
+  font-weight: bold;
+}
+
+.reminder-header-info {
+  padding-left: 5px;
+  font-weight: normal;
+  font-size: small;
+}
+
+.reminders-body {
+  padding: 0px 0px 5px 25px; 
+}
+
+.reminder-item {
+  padding-top: 3px;
   display: flex;
 }
 

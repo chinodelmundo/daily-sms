@@ -7,7 +7,9 @@ const client = require('twilio')(accountSID, authToken);
 // MongoDB
 const MongoClient = require('mongodb').MongoClient;
 const url = process.env.MONGO_URI || require('../config/mongodb').MONGO_URI;
-const dbName = 'foodhub';
+const dbName = 'daily-sms';
+
+const day = new Date().getDay();
 
 MongoClient.connect(url, (err, client) => {
     if (err) return console.log(err);
@@ -19,12 +21,23 @@ MongoClient.connect(url, (err, client) => {
         if (err) return console.log(err);
 
         result.forEach(document => {
-            const message = constructMessage(document.user, document.reminders);
-            const recipient = document.number;
+            if(document.reminders.daily.length > 0) {
+                const message = constructMessage(document.user, document.reminders.daily, 'Daily Reminders');
+                const recipient = document.number;
+    
+                sendSMS(message, recipient, () => {
+                    console.log('Send SMS to: ' + document.user);
+                });
+            }
 
-            sendSMS(message, recipient, () => {
-                console.log('Send SMS to: ' + document.user);
-            });
+            if(document.reminders.weekly.length > 0 && day == 6) {
+                const message = constructMessage(document.user, document.reminders.weekly, 'Weekly Reminders');
+                const recipient = document.number;
+    
+                sendSMS(message, recipient, () => {
+                    console.log('Send SMS to: ' + document.user);
+                });
+            }
         });
     });
     
@@ -44,11 +57,11 @@ const sendSMS = (message, recipient, callback) => {
     callback();
 };
 
-const constructMessage = (user, reminders) => {
-    let message = user + "\n";
+const constructMessage = (user, reminders, type) => {
+    let message = user + '\n' + type + '\n';
 
     reminders.forEach((reminder, index) => {
-        message += (index + 1) + ". " + reminder + "\n";
+        message += (index + 1) + ". " + reminder + '\n';
     });
 
     return message;
